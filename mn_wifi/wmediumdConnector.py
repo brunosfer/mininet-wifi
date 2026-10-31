@@ -195,6 +195,12 @@ class WStarter(object):
         """Start the wmediumd daemon"""
 
         parameters = ['-l', '0', '-s']
+        seed = kwargs.get('wmediumd_seed')
+        if seed is not None:
+            if isinstance(seed, bool) or not isinstance(seed, int) \
+                    or not 0 <= seed < 2 ** 64:
+                raise ValueError('wmediumd_seed must be an integer from 0 to 2^64 - 1')
+            parameters += ['-S', str(seed)]
         kwargs['parameters'] = parameters
 
         if wmediumd_mode.mode == 4:

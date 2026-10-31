@@ -1491,7 +1491,8 @@ class wmediumd(object):
     def configWmediumd(self, wlinks, fading_cof, noise_th, stations,
                        aps, cars, aircrafts, satellites, ppm, mediums,
                        pmsr_sigma=0.0, pmsr_nlos_prob=0.0, pmsr_nlos_bias=0.0,
-                       pmsr_seed=1, pmsr_crlb_alpha=0.0, pmsr_brms_ratio=0.0):
+                       pmsr_seed=1, pmsr_crlb_alpha=0.0, pmsr_brms_ratio=0.0,
+                       wmediumd_seed=None):
         "Configure wmediumd"
         intfrefs = []
         isnodeaps = []
@@ -1560,7 +1561,8 @@ class wmediumd(object):
                  isnodeaps=isnodeaps, ppm=ppm, mediums=mediums_id_list,
                  pmsr_sigma=pmsr_sigma, pmsr_nlos_prob=pmsr_nlos_prob,
                  pmsr_nlos_bias=pmsr_nlos_bias, pmsr_seed=pmsr_seed,
-                 pmsr_crlb_alpha=pmsr_crlb_alpha, pmsr_brms_ratio=pmsr_brms_ratio)
+                 pmsr_crlb_alpha=pmsr_crlb_alpha, pmsr_brms_ratio=pmsr_brms_ratio,
+                 wmediumd_seed=wmediumd_seed)
 
     @staticmethod
     def get_position(pos=None):

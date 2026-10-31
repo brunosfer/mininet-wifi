@@ -68,7 +68,7 @@ class Mininet_wifi(Mininet, Mininet_IoT, Mininet_WWAN, Mininet_btvirt):
                  client_isolation=False, plot=False, plot3d=False, docker=False,
                  container='mininet-wifi', ssh_user='alpha', rec_rssi=False,
                  wwan_module='wwan_hwsim', json_file=None, ac_method=None,
-                 btdevice=BTNode, **kwargs):
+                 btdevice=BTNode, wmediumd_seed=None, **kwargs):
         """Create Mininet object.
 
            accessPoint: default Access Point class
@@ -105,7 +105,9 @@ class Mininet_wifi(Mininet, Mininet_IoT, Mininet_WWAN, Mininet_btvirt):
            wwan_module: default wwan module
            rec_rssi: sends rssi to mac80211_hwsim by using hwsim_mgmt
            json_file: json file dir - useful for P4
-           ac_method: association control method"""
+           ac_method: association control method
+           wmediumd_seed: seed of all of wmediumd's random draws, so that they
+                          can be repeated (None: wmediumd's default)"""
         self.station = station
         self.aircraft = aircraft
         self.satellite = satellite
@@ -161,6 +163,7 @@ class Mininet_wifi(Mininet, Mininet_IoT, Mininet_WWAN, Mininet_btvirt):
         self.config4addr = config4addr
         self.fading_cof = fading_cof
         self.noise_th = noise_th
+        self.wmediumd_seed = wmediumd_seed
         self.disable_tcp_checksum = disable_tcp_checksum
         self.plot = Plot2D
         self.rec_rssi = rec_rssi
@@ -1611,7 +1614,8 @@ class Mininet_wifi(Mininet, Mininet_IoT, Mininet_WWAN, Mininet_btvirt):
                  pmsr_sigma=self.pmsr_sigma, pmsr_nlos_prob=self.pmsr_nlos_prob,
                  pmsr_nlos_bias=self.pmsr_nlos_bias, pmsr_seed=self.pmsr_seed,
                  pmsr_crlb_alpha=self.pmsr_crlb_alpha,
-                 pmsr_brms_ratio=self.pmsr_brms_ratio)
+                 pmsr_brms_ratio=self.pmsr_brms_ratio,
+                 wmediumd_seed=self.wmediumd_seed)
 
     def start_wmediumd_802154(self):
         wmediumd_802154(wlinks=self.wlinks, fading_cof=self.fading_cof,
